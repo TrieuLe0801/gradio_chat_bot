@@ -2,6 +2,7 @@ gradio
 transformers
 torch
 accelerate
+bitsandbytes
 ---
 isort
 black
