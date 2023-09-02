@@ -2,13 +2,23 @@ from threading import Thread
 
 import gradio as gr
 import torch
+from torch import bfloat16
 import transformers
 
 model_id = "stabilityai/StableBeluga-7B"
 
+# Quantization
+# bnb_config = transformers.BitsAndBytesConfig(
+#     load_in_4bit=True,
+#     bnb_4bit_quant_type='nf4',
+#     bnb_4bit_use_double_quant=True,
+#     bnb_4bit_compute_dtype=bfloat16
+# )
+
 # Loading model
 model = transformers.AutoModelForCausalLM.from_pretrained(
     model_id,
+    # quantization_config=bnb_config,
     trust_remote_code=True,  # Trust remote code execution
     device_map="auto",  # auto mapping device
 )
