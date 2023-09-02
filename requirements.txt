@@ -1,0 +1,9 @@
+gradio
+transformers
+torch
+accelerate
+bitsandbytes
+---
+isort
+black
+flake8
