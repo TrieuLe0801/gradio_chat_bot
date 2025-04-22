@@ -10,8 +10,8 @@ from pydantic import BaseModel
 
 from ui._chat import chat, chat_streaming
 
-DONE_MSG = "data: [DONE]\n\n"
 
+DONE_MSG = "<|DONE|>"
 
 class ChunkMessage(BaseModel):
     message: str | dict[str, Any]
@@ -41,20 +41,30 @@ async def main(message: cl.Message) -> None:
     streaming = settings.get("Streaming", False)
     is_show_step = settings.get("Show step", False)
 
-    msg = cl.Message(content="")
     if streaming:
-        async for chunk in chat_streaming(
-            session_id=session_id, user_query=message.content, image=encoded_image
-        ):
-            if chunk == DONE_MSG:
-                break
-            if chunk.startswith("data: "):
-                data = ChunkMessage(**json.loads(chunk[6:]))
-                await msg.stream_token(data.message)  # type: ignore
-            elif chunk.startswith("state: ") and is_show_step:
-                for step in json.loads(chunk[7:]):
-                    await show_step(step)
-        await msg.update()
+            # Khởi tạo tin nhắn đang stream
+            msg = cl.Message(content="")
+            await msg.send()
+
+            async for chunk in chat_streaming(
+                session_id=session_id,
+                user_query=message.content,
+                image=encoded_image
+            ):
+                if chunk == DONE_MSG:
+                    break
+                if chunk.startswith("data: "):
+                    json_data = json.loads(chunk[6:])
+                    try:
+                        data = ChunkMessage(**json_data)
+                        await msg.stream_token(str(data.message))  # type: ignore
+                    except Exception as e:
+                        await msg.stream_token(f"[Error parsing chunk: {e}]")
+                elif chunk.startswith("state: ") and is_show_step:
+                    steps = json.loads(chunk[7:])
+                    for step in steps:
+                        await show_step(step)
+            await msg.update()
     else:
         res = await chat(session_id=session_id, user_query=message.content, image=encoded_image)
         if is_show_step:

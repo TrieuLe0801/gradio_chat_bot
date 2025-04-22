@@ -4,6 +4,7 @@ from typing import Any, Dict, Union, cast
 
 import httpx
 from dotenv import load_dotenv
+import json
 
 from llm import llm_client
 
@@ -11,8 +12,10 @@ from llm import llm_client
 
 load_dotenv(".env")
 
+DONE_MSG = "<|DONE|>"
 
-async def chat(session_id: Union[str, int], user_query: str, image: str) -> Dict[str, Any]:
+
+async def chat(session_id: Union[str, int], user_query: str, image: str) -> Union[Dict[str, Any], str]:
     """
     Gửi câu hỏi tới mô hình và nhận kết quả trả về.
 
@@ -22,7 +25,7 @@ async def chat(session_id: Union[str, int], user_query: str, image: str) -> Dict
         image (str): Đường dẫn hoặc base64 ảnh (hiện không dùng)
 
     Returns:
-        Dict[str, Any]: Phản hồi từ mô hình
+        Union[Dict[str, Any], str]: Phản hồi từ mô hình
     """
     # try:
     # Gọi client nội bộ (không dùng HTTP)
@@ -49,20 +52,23 @@ async def chat(session_id: Union[str, int], user_query: str, image: str) -> Dict
     #     raise RuntimeError(f"Chat failed: {e}") from e
 
 
-async def chat_streaming(session_id: Union[str, int], user_query: str) -> AsyncIterator[str]:
-    """
-    Gọi trực tiếp llm_client.achat để lấy kết quả dạng streaming.
 
-    Args:
-        session_id (str | int): ID phiên người dùng
-        user_query (str): Prompt từ người dùng
 
-    Yields:
-        str: Từng chunk text từ mô hình
-    """
-    async for chunk in llm_client.achat(
-        model_name=os.getenv("LLM_MODEL_NAME"),
-        messages=[{"role": "user", "content": user_query}],
-        stream=True,
-    ):
-        yield chunk
+async def chat_streaming(session_id: Union[str, int], user_query: str, image: str) -> AsyncIterator[str]:
+#     """
+#     Gọi llm_client.achat để lấy kết quả và yield 1 lần dạng streaming chunk.
+
+#     Args:
+#         session_id (str | int): ID phiên người dùng
+#         user_query (str): Prompt từ người dùng
+#         image (str): ảnh encode dạng base64 (chưa sử dụng)
+
+#     Yields:
+#         str: Chuỗi JSON bọc trong prefix "data: " (dùng được với main())
+#     """
+#     async for chunk in llm_client.stream_chat(
+#         model_name=os.getenv("LLM_MODEL_NAME"),
+#         messages=[{"role": "user", "content": user_query}]
+#     ):
+#         yield chunk
+    pass
