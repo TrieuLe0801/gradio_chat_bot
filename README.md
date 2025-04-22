@@ -1,5 +1,5 @@
 # gradio_chat_bot:
-A demo chatbot with Gradio and LLM. Thanks to Sentdex: https://www.youtube.com/@sentdex
+A demo chatbot with Chainlit and LLM.
 # Prequirements:
 - Python>=3.7
 - OS: MacOS, Linux
@@ -23,6 +23,6 @@ A demo chatbot with Gradio and LLM. Thanks to Sentdex: https://www.youtube.com/@
       ```
   # Start
   ```
-  python gradio_chat_interface.py
+  make run_ui
   ```
     
