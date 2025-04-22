@@ -15,3 +15,8 @@ clean:
 		rm -rf dist/
 		rm -rf build/
 		find . | grep -E '(\.mypy_cache|__pycache__|\.pyc|\.pyo$$)' | xargs rm -rf
+
+.PHONY: run_ui
+run_ui:
+	export PYTHONPATH=$(PWD) && \
+	chainlit run ui/main.py --host 0.0.0.0 --port 3000
