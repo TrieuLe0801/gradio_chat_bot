@@ -1,4 +1,4 @@
-# gradio_chat_bot:
+# Chainlit bot:
 A demo chatbot with Chainlit and LLM.
 # Prequirements:
 - Python>=3.7
@@ -25,4 +25,5 @@ A demo chatbot with Chainlit and LLM.
   ```
   make run_ui
   ```
+  # Docker 
     
