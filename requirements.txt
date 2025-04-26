@@ -1,14 +1,14 @@
 chainlit
-transformers
-torch
-accelerate
-bitsandbytes
+# transformers
+# torch
+# accelerate
+# bitsandbytes
 isort
 black
 flake8
 loguru
-vllm
-openai
+# vllm
+# openai
 litellm
 dotenv
 python-dotenv
