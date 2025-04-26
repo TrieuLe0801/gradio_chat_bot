@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    image: trieule0801/chainlit-chatbot:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: /bin/bash
+    command: -c "export PYTHONPATH=. && chainlit run ui/main.py --host 0.0.0.0 --port 7860 "
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./.env:/app/.env
+    restart: unless-stopped
