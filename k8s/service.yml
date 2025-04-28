@@ -7,6 +7,6 @@ spec:
   selector:
     app: chainlit-chatbot
   ports:
-  - port: 80
+  - port: 7860
     targetPort: 7860
     nodePort: 30786   # Optional, you can let Kubernetes assign a random port choose any available port 30000-32767
