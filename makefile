@@ -19,4 +19,4 @@ clean:
 .PHONY: run_ui
 run_ui:
 	export PYTHONPATH=$(PWD) && \
-	chainlit run ui/main.py --host 0.0.0.0 --port 3000
+	chainlit run chainlit_chat/ui/main.py --host 0.0.0.0 --port 3000
