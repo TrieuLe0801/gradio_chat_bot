@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chainlit-chatbot-service
+spec:
+  type: LoadBalancer   # Or NodePort if LoadBalancer isn't available
+  selector:
+    app: chainlit-chatbot
+  ports:
+  - port: 80
+    targetPort: 7860
