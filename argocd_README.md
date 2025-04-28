@@ -22,7 +22,23 @@ $ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"
 ```
 - Ingress
 Follow the [ingress documentation](https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/) on how to configure Argo CD with ingress.
+Example for Ingress
+```
+# Instal nginx ingress
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 
+# Check ingress nginx
+$ kubectl get pods -n ingress-nginx
+```
+You have to wait until you see:
+```
+ingress-nginx-controller-xxxxx   Running
+```
+Apply ingress to ArgoCD
+```
+$ kubectl apply -f argocd-ingress.yaml
+```
+Finally, you need to update `/etc/hosts` to point `argocd.example.com` → your ingress IP.
 ## 4. Port-forward
 ```
 $ kubectl port-forward svc/argocd-server -n argocd 8080:443
