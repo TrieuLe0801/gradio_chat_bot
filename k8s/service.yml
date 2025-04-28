@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: chainlit-chatbot-service
 spec:
-  # type: NodePort   # Or NodePort if LoadBalancer isn't available
+  type: NodePort   # Or NodePort if LoadBalancer isn't available
   selector:
     app: chainlit-chatbot
   ports:
