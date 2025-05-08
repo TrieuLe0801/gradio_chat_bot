@@ -84,7 +84,7 @@ async def start() -> None:
             # Select(
             #     id="Model", label="OpenAI - Model", values=["openai:gpt-4o"] * 2, initial_index=1
             # ),
-            # Switch(id="Streaming", label="OpenAI - Stream Tokens", initial=False),
+            Switch(id="Streaming", label="Streaming", initial=False),
             Switch(id="Show step", label="Show step", initial=False),
         ]
     ).send()
