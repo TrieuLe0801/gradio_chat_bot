@@ -22,7 +22,7 @@ spec:
       - name: chainlit-chatbot
         imagePullPolicy: Always
 
-        image: trieule0801/chainlit-chatbot:latest   # You already built and pushed this
+        image: trieule0801/chainlit-chatbot:v1.0.4   # You already built and pushed this
         ports:
         - containerPort: 7860
         # envFrom:

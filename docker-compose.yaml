@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: trieule0801/chainlit-chatbot:latest
+    image: trieule0801/chainlit-chatbot:v1.0.4
     build:
       context: .
       dockerfile: Dockerfile
