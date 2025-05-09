@@ -4,6 +4,10 @@ metadata:
   name: chainlit-chatbot
   labels:
     app: chainlit-chatbot
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: trieule0801/chainlit-chatbot
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/trieule0801.chainlit-chatbot.update-strategy: latest
 spec:
   replicas: 1
   selector:
@@ -17,6 +21,7 @@ spec:
       containers:
       - name: chainlit-chatbot
         imagePullPolicy: Always
+
         image: trieule0801/chainlit-chatbot:latest   # You already built and pushed this
         ports:
         - containerPort: 7860
